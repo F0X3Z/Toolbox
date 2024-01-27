@@ -85,7 +85,14 @@ def main():
     # Fetch and display vulnerabilities (collecting alerts as dictionaries in a list)
     alerts = []
     for alert in zap.core.alerts(baseurl=target_url):
-        alert_dict = {'name': alert['name'], 'description': alert['description']}
+    #https://www.zaproxy.org/docs/api/#alertactionaddalert
+        alert_dict = {
+    'name': alert.get('name', ''),
+    'description': alert.get('description', ''),
+    'riskId': alert.get('riskId', ''),
+    'evidence': alert.get('evidence', ''),
+    'solution': alert.get('solution', '')
+}
         if alert_dict not in alerts:
             alerts.append(alert_dict)
 
