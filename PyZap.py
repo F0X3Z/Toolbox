@@ -85,23 +85,9 @@ def main():
     # Fetch and display vulnerabilities (collecting alerts as dictionaries in a list)
     alerts = []
     for alert in zap.core.alerts(baseurl=target_url):
-            alert_dict = {
-        'name': alert['name'],
-        'description': alert['description'],
-        'risk': alert['risk'],
-        'confidence': alert['confidence'],
-        'solution': alert['solution'],
-        'reference': alert['reference'],
-        'cweid': alert['cweid'],
-        'wascid': alert['wascid'],
-        'url': alert['url'],
-        'evidence': alert['evidence'],
-        'param': alert['param'],
-        'attack': alert['attack'],
-#        'otherinfo': alert['otherinfo']
-    }
-    if alert_dict not in alerts:
-       alerts.append(alert_dict)
+        alert_dict = {'name': alert['name'], 'description': alert['description']}
+        if alert_dict not in alerts:
+            alerts.append(alert_dict)
 
     # Determine the output file name based on the entered URL
     if args.output:
