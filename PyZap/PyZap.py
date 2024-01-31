@@ -90,9 +90,9 @@ def main():
         time.sleep(1)
         
 
-    # Fetch and display vulnerabilities using zaproxy api
-    response = requests.get(f'{zap_api_url}/JSON/reports/action/generate/?apikey={api_key}&title=Test&template=traditional-pdf&theme=&description=&contexts=&sites=&sections=&includedConfidences=&includedRisks=&reportFileName={parsed_url.netloc}.pdf&reportFileNamePattern=&reportDir={cwd}&display=false')
-    print("The report has been saved to {parsed_url.netloc}.pdf")
+    # Fetch vulnerabilities using zaproxy api
+    response = requests.get(f'{zap_api_url}/JSON/reports/action/generate/?apikey={api_key}&title={parsed_url.netloc} Scan Report&template=modern&theme=nature&description=&contexts=&sites=&sections=chart%7Calertcount%7Cinstancecount%7Calertdetails%7Cstatistics%7Cparams&includedConfidences=Low%7CMedium%7CHigh%7CConfirmed&includedRisks=Low%7CMedium%7CHigh&reportFileName={parsed_url.netloc}.html&reportFileNamePattern=&reportDir={cwd}&display=false')
+    print(f"The report has been saved to {parsed_url.netloc}.html")
 
 if __name__ == "__main__":
     main()
