@@ -4,7 +4,8 @@ import argparse
 from docx import Document
 from urllib.parse import urlparse
 import requests
-
+from pprint import pprint
+import os
 
 def is_zap_running(zap_api_url):
     try:
@@ -45,6 +46,10 @@ def main():
     
     # Set ZAP API URL
     zap_api_url = 'http://localhost:8080'
+    
+    # Set current dir
+    
+    cwd = os.getcwd()
 
     # Check if ZAP is running
     if not is_zap_running(zap_api_url):
@@ -59,6 +64,8 @@ def main():
 
     # Set the target URL from the command-line argument
     target_url = args.target_url
+    
+    parsed_url = urlparse(target_url)
 
     # Start spidering
     zap.spider.scan(target_url)
@@ -81,31 +88,11 @@ def main():
         if ascan_status == '100':
             break
         time.sleep(1)
+        
 
-    # Fetch and display vulnerabilities (collecting alerts as dictionaries in a list)
-    alerts = []
-    for alert in zap.core.alerts(baseurl=target_url):
-    #https://www.zaproxy.org/docs/api/#alertactionaddalert
-        alert_dict = {
-    'name': alert.get('name', ''),
-    'description': alert.get('description', ''),
-    'riskId': alert.get('riskId', ''),
-    'evidence': alert.get('evidence', ''),
-    'solution': alert.get('solution', '')
-}
-        if alert_dict not in alerts:
-            alerts.append(alert_dict)
-
-    # Determine the output file name based on the entered URL
-    if args.output:
-        output_file = args.output
-    else:
-        parsed_url = urlparse(target_url)
-        output_file = f"{parsed_url.netloc}.docx"
-
-    # Create a DOCX report
-    create_report(alerts, output_file)
-    print(f"Report saved to: {output_file}")
+    # Fetch and display vulnerabilities using zaproxy api
+    response = requests.get(f'{zap_api_url}/JSON/reports/action/generate/?apikey={api_key}&title=Test&template=traditional-pdf&theme=&description=&contexts=&sites=&sections=&includedConfidences=&includedRisks=&reportFileName={parsed_url.netloc}.pdf&reportFileNamePattern=&reportDir={cwd}&display=false')
+    print("The report has been saved to {parsed_url.netloc}.pdf")
 
 if __name__ == "__main__":
     main()
