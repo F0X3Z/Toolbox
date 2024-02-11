@@ -1,11 +1,10 @@
-from zapv2 import ZAPv2
-import time
 import argparse
-from docx import Document
+import time
+import os
 from urllib.parse import urlparse
 import requests
-from pprint import pprint
-import os
+from docx import Document
+from zapv2 import ZAPv2
 
 def is_zap_running(zap_api_url):
     try:
