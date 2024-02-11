@@ -1,35 +1,41 @@
+"""Pyzap helps you use zaproxy without a graphical interface"""
 import argparse
 import time
 import os
 from urllib.parse import urlparse
 import requests
-from docx import Document
 from zapv2 import ZAPv2
 
 def is_zap_running(zap_api_url):
+    """Checking if zaproxy is reachable"""
     try:
         print("Checking if Zaproxy is reachable")
         response = requests.get(zap_api_url, timeout=1)
         if response.status_code == 200:
-            print(f"Zaproxy is running, starting spider")
+            print("Zaproxy is running, starting spider")
             return True
-        else:
-            print(f"Zaproxy is not reachable, unexpected response code: {response.status_code}")
-            return False
+
+        print(f"Zaproxy is not reachable, unexpected response code: {response.status_code}")
+        return False
     except requests.RequestException:
-        print(f"Zaproxy is not reachable, is zaproxy running? Check the connection to {zap_api_url}")
+        print(f"Zaproxy is not reachable is zaproxy running? Check the connection to {zap_api_url}")
         return False
 
 
 def parse_args():
+    """Parses user arguments"""
     parser = argparse.ArgumentParser(description="ZAP Scanner Script")
     parser.add_argument('target_url', help="Target URL to scan")
     parser.add_argument('-o', '--output', help="Output HTML file")
-    parser.add_argument('-t', '--theme', help="console","construction","corporate","marketing","mountain","nature","ocean","plutonium","skyline","technology"
+    parser.add_argument('--theme',
+    choices=["console", "construction", "corporate", "marketing",
+    "mountain", "nature", "ocean", "plutonium", "skyline",
+    "technology"], help="Theme to use", default="technology")
     return parser.parse_args()
 
 
 def main():
+    """Enter Your API Key And api_url"""
     args = parse_args()
 
     # Set your ZAP API key
@@ -82,7 +88,9 @@ def main():
 
 
     # Fetch vulnerabilities using zaproxy api
-    requests.get(f'{zap_api_url}/JSON/reports/action/generate/?apikey={api_key}&title={parsed_url.netloc} Scan Report&template=modern&theme=nature&description=&contexts=&sites=&sections=chart%7Calertcount%7Cinstancecount%7Calertdetails%7Cstatistics%7Cparams&includedConfidences=Low%7CMedium%7CHigh%7CConfirmed&includedRisks=Low%7CMedium%7CHigh&reportFileName={parsed_url.netloc}.html&reportFileNamePattern=&reportDir={cwd}&display=false')
+    args = parse_args()
+    theme = args.theme
+    requests.get(f'{zap_api_url}/JSON/reports/action/generate/?apikey={api_key}&title={parsed_url.netloc} Scan Report&template=modern&theme={theme}&description=&contexts=&sites=&sections=chart%7Calertcount%7Cinstancecount%7Calertdetails%7Cstatistics%7Cparams&includedConfidences=Low%7CMedium%7CHigh%7CConfirmed&includedRisks=Low%7CMedium%7CHigh&reportFileName={parsed_url.netloc}.html&reportFileNamePattern=&reportDir={cwd}&display=false', timeout=10)
     print(f"The report has been saved to {parsed_url.netloc}.html")
 
 if __name__ == "__main__":
