@@ -24,18 +24,10 @@ def is_zap_running(zap_api_url):
 def parse_args():
     parser = argparse.ArgumentParser(description="ZAP Scanner Script")
     parser.add_argument('target_url', help="Target URL to scan")
-    parser.add_argument('-o', '--output', help="Output DOCX file")
+    parser.add_argument('-o', '--output', help="Output HTML file")
+    parser.add_argument('-t', '--theme', help="console","construction","corporate","marketing","mountain","nature","ocean","plutonium","skyline","technology"
     return parser.parse_args()
 
-def create_report(alerts, output_file):
-    doc = Document()
-    doc.add_heading('ZAP Scan Report', 0)
-
-    for alert in alerts:
-        doc.add_heading(alert.get('name', 'No Name'), level=1)
-        doc.add_paragraph(alert.get('description', 'No Description'))
-
-    doc.save(output_file)
 
 def main():
     args = parse_args()
@@ -90,7 +82,7 @@ def main():
 
 
     # Fetch vulnerabilities using zaproxy api
-    response = requests.get(f'{zap_api_url}/JSON/reports/action/generate/?apikey={api_key}&title={parsed_url.netloc} Scan Report&template=modern&theme=nature&description=&contexts=&sites=&sections=chart%7Calertcount%7Cinstancecount%7Calertdetails%7Cstatistics%7Cparams&includedConfidences=Low%7CMedium%7CHigh%7CConfirmed&includedRisks=Low%7CMedium%7CHigh&reportFileName={parsed_url.netloc}.html&reportFileNamePattern=&reportDir={cwd}&display=false')
+    requests.get(f'{zap_api_url}/JSON/reports/action/generate/?apikey={api_key}&title={parsed_url.netloc} Scan Report&template=modern&theme=nature&description=&contexts=&sites=&sections=chart%7Calertcount%7Cinstancecount%7Calertdetails%7Cstatistics%7Cparams&includedConfidences=Low%7CMedium%7CHigh%7CConfirmed&includedRisks=Low%7CMedium%7CHigh&reportFileName={parsed_url.netloc}.html&reportFileNamePattern=&reportDir={cwd}&display=false')
     print(f"The report has been saved to {parsed_url.netloc}.html")
 
 if __name__ == "__main__":
