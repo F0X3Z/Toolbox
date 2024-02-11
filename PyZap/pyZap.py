@@ -17,7 +17,7 @@ def is_zap_running(zap_api_url):
             print(f"Zaproxy is not reachable, unexpected response code: {response.status_code}")
             return False
     except requests.RequestException:
-        print(f"Zaproxy is not reachable, is zaproxy running? Check your connection to {zap_api_url}")
+        print(f"Zaproxy is not reachable, is zaproxy running? Check the connection to {zap_api_url}")
         return False
 
 
@@ -42,18 +42,18 @@ def main():
 
     # Set your ZAP API key
     api_key = 'qgcj67di7jptu64od9h6j4ocba'
-    
+
     # Set ZAP API URL
     zap_api_url = 'http://localhost:8080'
-    
+
     # Set current dir
-    
+
     cwd = os.getcwd()
 
     # Check if ZAP is running
     if not is_zap_running(zap_api_url):
         return
-        
+
 
     # Instantiate ZAP object
     zap = ZAPv2(apikey=api_key, proxies={'http': zap_api_url, 'https': zap_api_url})
@@ -63,7 +63,7 @@ def main():
 
     # Set the target URL from the command-line argument
     target_url = args.target_url
-    
+
     parsed_url = urlparse(target_url)
 
     # Start spidering
@@ -87,7 +87,7 @@ def main():
         if ascan_status == '100':
             break
         time.sleep(1)
-        
+
 
     # Fetch vulnerabilities using zaproxy api
     response = requests.get(f'{zap_api_url}/JSON/reports/action/generate/?apikey={api_key}&title={parsed_url.netloc} Scan Report&template=modern&theme=nature&description=&contexts=&sites=&sections=chart%7Calertcount%7Cinstancecount%7Calertdetails%7Cstatistics%7Cparams&includedConfidences=Low%7CMedium%7CHigh%7CConfirmed&includedRisks=Low%7CMedium%7CHigh&reportFileName={parsed_url.netloc}.html&reportFileNamePattern=&reportDir={cwd}&display=false')
@@ -95,4 +95,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
