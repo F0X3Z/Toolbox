@@ -1,11 +1,14 @@
+"""MD5 and SHA1 dehasher"""
 import hashlib
 
 def hash_string(text, hash_algorithm):
+    """"Pylint :)"""
     hash_func = hashlib.new(hash_algorithm)
     hash_func.update(text.encode('utf-8'))
     return hash_func.hexdigest()
 
 def dehash(hash_value, wordlist):
+    """"Check what hash it is"""
     hash_algorithms = {
         32: 'md5',
         40: 'sha1'
@@ -19,8 +22,8 @@ def dehash(hash_value, wordlist):
 
     hash_algorithm = hash_algorithms[hash_length]
 
-    with open(wordlist, 'r') as f:
-        for word in f:
+    with open(wordlist, 'r', encoding='utf-8') as wordlist_file_input:
+        for word in wordlist_file_input:
             hashed_word = hash_string(word.strip(), hash_algorithm)
             if hashed_word == hash_value:
                 return f"Found: {word.strip()}"
