@@ -23,9 +23,11 @@ def export_to_docx(network_range, hosts_list):
 
     for host in hosts_list:
         document.add_paragraph(host)
+        print(host)  # Print the host as well
 
-    document.save('network_hosts.docx')
-    print('Exported hosts to network_hosts.docx')
+    filename = 'Hosts_on_{}.docx'.format(network_range.replace('/', '_'))
+    document.save(filename)
+    print('Exported hosts to', filename)
 
 if __name__ == "__main__":
     network_range, hosts = discover_hosts()
