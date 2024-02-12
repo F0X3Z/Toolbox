@@ -22,6 +22,8 @@ apt-get install zaproxy python3
 pip install requests python-owasp-zap-v2.4 selenium
 ```
 # PYZAP
+This tool will help you run a vulnerbility scan against a website and creating a vulnerbility-report.
+
 Start your headless ZAP Proxy server:
 ```bash
 zaproxy -daemon
@@ -34,6 +36,7 @@ python3 pyzap.py https://example.com
 ```
 
 # NMAP
+This tool uses Nmap to create a list of hosts on a ip-range.
 
 Adjust the network range according to your requirements and run the scan:
 
@@ -42,6 +45,7 @@ python3 scan.py
 ```
 
 # DEHASHER SHA1 & MD5
+This tool helps you dehash SHA1 & MD5 hashes.
 
 Execute the dehasher script:
 
