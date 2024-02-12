@@ -12,7 +12,7 @@ git clone https://github.com/F0X3Z/Toolbox.git
 
 Additionally, ensure you have the following dependencies installed:
 
-ZAP Proxy
+Zed Attack Proxy
 Python 3
 
 Install Python dependencies using pip:
