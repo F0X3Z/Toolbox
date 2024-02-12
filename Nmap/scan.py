@@ -1,8 +1,11 @@
+"""Nmap scanner which gives you a list with alive hosts"""
+from datetime import datetime
 import nmap
 from docx import Document
-from datetime import datetime
+
 
 def discover_hosts():
+    """Start Nmap scan"""
     nm = nmap.PortScanner()
     network_range = '192.168.1.0/24'  # Change this to your actual network range
     nm.scan(hosts=network_range, arguments='-n -sP')
