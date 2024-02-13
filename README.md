@@ -53,6 +53,13 @@ Execute the dehasher script:
 python3 dehasher.py
 ```
 
+## FILTER
+This script will help you separate combos from the Naz.Api leak.
+
+```bash
+python3 filter.py
+```
+
 ## BRUTE FORCE
 
 Using bruteforce
