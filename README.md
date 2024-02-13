@@ -19,7 +19,7 @@ Install Python dependencies using pip:
 
 ```bash
 apt-get install zaproxy python3
-pip install requests python-owasp-zap-v2.4 selenium
+pip install requests python-owasp-zap-v2.4 selenium python-nmap
 ```
 ## PYZAP
 This tool will help you run a vulnerbility scan against a website and creating a vulnerbility-report.
