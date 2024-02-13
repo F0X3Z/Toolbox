@@ -4,4 +4,5 @@ https://www.ionos.es/enteraddress:example@hotmail.com:123456
 https://www.twitch.tv/:UserExample:654321
 https://www.twitch.tv/:ExampleUser:987654321
 https://4anime.to/login exUser:samplepass
+https://4anime.to/login exUser:samplepass
 https://animes-portal.info/ animeUser:AnimePass

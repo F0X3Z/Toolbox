@@ -1,0 +1,7 @@
+example@gmail.com:PASSWORD
+User:pass
+example@hotmail.com:123456
+UserExample:654321
+ExampleUser:987654321
+exUser:samplepass
+animeUser:AnimePass
