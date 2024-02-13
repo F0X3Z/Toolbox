@@ -24,7 +24,7 @@ pip install requests python-owasp-zap-v2.4 selenium
 ## PYZAP
 This tool will help you run a vulnerbility scan against a website and creating a vulnerbility-report.
 
-Start your headless ZAP Proxy server:
+Start your headless Zed Attack Proxy server:
 ```bash
 zaproxy -daemon
 ```
