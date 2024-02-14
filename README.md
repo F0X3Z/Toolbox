@@ -63,7 +63,7 @@ python3 filter.py
 ## WEB SHELL
 
 ```bash
-usage = Usage: python3 exploit.py HOST PORT COMMAND
+Usage: python3 exploit.py HOST PORT COMMAND
 
 Ex: python3 exploit.py 10.0.0.1 10000 id
 
